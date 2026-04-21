@@ -47,30 +47,39 @@ class RagAgentV2:
         # Step 1: Query expansion
         queries = await self._expand_query(question)
 
-        # Step 2: Retrieve with scores from all query variants
-        all_docs_with_scores: list = []
-        seen_contents: set = set()
+        # Step 2: Retrieve with scores from all query variants using raw ChromaDB for real IDs
+        from langchain_openai import OpenAIEmbeddings
+        embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+
+        seen_ids: set = set()
+        all_chunks: list = []  # (chunk_id, content, metadata, score)
         for q in queries:
-            results = self.vectorstore.similarity_search_with_relevance_scores(q, k=5)
-            for doc, score in results:
-                if doc.page_content not in seen_contents and score >= self.score_threshold:
-                    all_docs_with_scores.append((doc, score))
-                    seen_contents.add(doc.page_content)
+            qvec = embeddings.embed_query(q)
+            raw = self.vectorstore._collection.query(
+                query_embeddings=[qvec],
+                n_results=5,
+                include=["documents", "metadatas", "distances"],
+            )
+            for chunk_id, doc, meta, dist in zip(
+                raw["ids"][0], raw["documents"][0], raw["metadatas"][0], raw["distances"][0]
+            ):
+                score = 1 - dist  # cosine distance → similarity
+                if chunk_id not in seen_ids and score >= self.score_threshold:
+                    all_chunks.append((chunk_id, doc, meta, score))
+                    seen_ids.add(chunk_id)
 
         # Sort by score descending, take top 5
-        all_docs_with_scores.sort(key=lambda x: x[1], reverse=True)
-        top_docs = all_docs_with_scores[:5]
+        all_chunks.sort(key=lambda x: x[3], reverse=True)
+        top = all_chunks[:5]
 
-        contexts = [doc.page_content for doc, _ in top_docs]
-        retrieved_ids = [
-            doc.metadata.get("source", doc.metadata.get("id", f"doc_{i}"))
-            for i, (doc, _) in enumerate(top_docs)
-        ]
-        scores = [round(score, 4) for _, score in top_docs]
+        contexts = [c[1] for c in top]
+        retrieved_ids = [c[0] for c in top]
+        sources = [c[2].get("source", retrieved_ids[i]) for i, c in enumerate(top)]
+        scores = [round(c[3], 4) for c in top]
 
         # Step 3: Generate with detailed prompt
         context_text = "\n---\n".join(
-            f"[Nguồn: {rid}]\n{ctx}" for rid, ctx in zip(retrieved_ids, contexts)
+            f"[Nguồn: {src}]\n{ctx}" for src, ctx in zip(sources, contexts)
         )
         user_prompt = (
             f"{SYSTEM_PROMPT}\n\n"
@@ -90,7 +99,7 @@ class RagAgentV2:
                 "model": self.llm.model_name if hasattr(self.llm, "model_name") else str(self.llm),
                 "top_k": 5,
                 "version": "v2",
-                "sources": retrieved_ids,
+                "sources": sources,
                 "relevance_scores": scores,
                 "query_variants": queries,
             },

@@ -48,14 +48,18 @@ class RagAgentV1:
         self.llm = _get_llm()
 
     async def query(self, question: str) -> Dict:
-        # Simple retrieval — only top 2
-        docs = self.vectorstore.similarity_search(question, k=2)
-
-        contexts = [doc.page_content for doc in docs]
-        retrieved_ids = [
-            doc.metadata.get("source", doc.metadata.get("id", f"doc_{i}"))
-            for i, doc in enumerate(docs)
-        ]
+        # Simple retrieval — only top 2, using internal collection to get real chunk IDs
+        from langchain_openai import OpenAIEmbeddings
+        embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+        query_vector = embeddings.embed_query(question)
+        raw = self.vectorstore._collection.query(
+            query_embeddings=[query_vector],
+            n_results=2,
+            include=["documents", "metadatas"],
+        )
+        contexts = raw["documents"][0]
+        retrieved_ids = raw["ids"][0]
+        sources = [m.get("source", f"doc_{i}") for i, m in enumerate(raw["metadatas"][0])]
 
         # Generic prompt — no special instructions
         context_text = "\n---\n".join(contexts)
@@ -72,6 +76,6 @@ class RagAgentV1:
                 "model": self.llm.model_name if hasattr(self.llm, "model_name") else str(self.llm),
                 "top_k": 2,
                 "version": "v1",
-                "sources": retrieved_ids,
+                "sources": sources,
             },
         }
