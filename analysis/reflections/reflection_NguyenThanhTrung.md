@@ -1,4 +1,4 @@
-# Individual Reflection — Trung Nguyễn
+# Individual Reflection — Nguyễn Thành Trung 2A202600451
 
 > Email: trung2782002@gmail.com · GitHub: trungnguyen278
 
