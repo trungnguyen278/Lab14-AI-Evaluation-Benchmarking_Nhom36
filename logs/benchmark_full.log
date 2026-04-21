@@ -1,0 +1,17 @@
+
+🚀 Benchmark v1 on 60 cases ...
+   ✓ v1 done in 67.6s — score=4.289, hit=0.981, cost=$0.46825
+
+🚀 Benchmark v2 on 60 cases ...
+   ✓ v2 done in 102.3s — score=4.569, hit=0.981, cost=$0.46494
+
+🔍 Position-bias test on top-10 highest-gap V2 cases ...
+   ✓ 6/10 cases flipped (delta>0.5)  — extra cost $0.02665
+
+📊 --- REGRESSION (V1 vs V2) ---
+V1 score: 4.289  hit: 0.981  cost: $0.46825
+V2 score: 4.569  hit: 0.981  cost: $0.46494
+Δ score: +0.280   Δ hit: +0.000   cost×0.993
+
+🧭 RELEASE GATE: APPROVE
+   - Latency grew by 9.5s (warning, not blocking)

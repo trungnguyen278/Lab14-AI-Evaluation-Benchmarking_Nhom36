@@ -1,0 +1,13 @@
+
+🚀 Benchmark v1 on 50 cases ...
+   ✓ v1 done in 123.6s — score=4.367, hit=0.98, cost=$0.38456
+
+🚀 Benchmark v2 on 50 cases ...
+   ✓ v2 done in 127.9s — score=4.81, hit=0.98, cost=$0.39003
+
+📊 --- REGRESSION (V1 vs V2) ---
+V1 score: 4.367  hit: 0.98  cost: $0.38456
+V2 score: 4.81  hit: 0.98  cost: $0.39003
+Δ score: +0.443   Δ hit: +0.000   cost×1.014
+
+🧭 RELEASE GATE: APPROVE

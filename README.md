@@ -60,15 +60,27 @@ Báo cáo 5 Whys phải chỉ ra được lỗi nằm ở đâu: Ingestion pipel
 # 1. Cài đặt dependencies
 pip install -r requirements.txt
 
-# 2. Tạo Golden Dataset (chạy trước khi benchmark)
+# 2. Cấu hình API key — copy template rồi điền OPENAI_API_KEY thật
+cp .env.example .env
+# (hoặc trên Windows: copy .env.example .env)
+# Mở .env, điền giá trị cho OPENAI_API_KEY. Các key khác (JUDGE_MODEL_A/B, AGENT_MODEL,
+# EMBEDDING_MODEL) đã có default hợp lý; chỉ cần đổi nếu muốn dùng model khác.
+
+# 3. Tạo Golden Dataset (50 SDG cases + 10 adversarial cases hard-coded)
 python data/synthetic_gen.py
+# → data/golden_set.jsonl với 60 dòng (50 được LLM sinh + 10 adversarial cố định để re-run
+#   không mất tập red-teaming).
 
-# 3. Chạy Benchmark & tạo reports
+# 4. Chạy Benchmark & tạo reports
 python main.py
+# → reports/summary.json, reports/benchmark_results.json, cộng với log position-bias test.
 
-# 4. Kiểm tra định dạng trước khi nộp
+# 5. Kiểm tra định dạng trước khi nộp
 python check_lab.py
 ```
+
+> Lưu ý: `python main.py` sẽ gọi OpenAI ~250 lần (60 cases × 2 version × 2 judge + 10 position-bias).
+> Chi phí đo thực tế ≈ **$0.96** (V1 $0.468 + V2 $0.465 + bias $0.027). Thời gian ~3 phút với batch_size=10.
 
 ---
 
