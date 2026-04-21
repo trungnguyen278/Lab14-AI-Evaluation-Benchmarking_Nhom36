@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 .DS_Store
 
-data/golden_set.jsonl
+
 .venv/
 venv/
 .claude/
