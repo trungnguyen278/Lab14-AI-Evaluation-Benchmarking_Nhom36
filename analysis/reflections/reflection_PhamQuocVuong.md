@@ -1,6 +1,7 @@
-# Individual Reflection — Phạm Vương
+# Individual Reflection — Phạm Quốc Vương
 
 > GitHub: phamvuong2622004 · Email: phamvuong2622004@gmail.com
+> Mã sinh viên : 2A202600419
 
 ## 1. Vai trò trong nhóm & đóng góp cụ thể
 - **Vai trò:** Data — đồng phụ trách Golden Dataset với Lương Anh.
