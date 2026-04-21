@@ -1,6 +1,6 @@
 # Individual Reflection — Huy Tú
 
-> GitHub: huytu0702 · Email: tufy2k4@gmail.com
+> GitHub: huytu0702 · Email: tufy2k4@gmail.com · MSV: 2A202600170
 
 ## 1. Vai trò trong nhóm & đóng góp cụ thể
 - **Vai trò:** AI/Backend — chủ 2 phiên bản RAG Agent (V1 baseline + V2 optimized).
