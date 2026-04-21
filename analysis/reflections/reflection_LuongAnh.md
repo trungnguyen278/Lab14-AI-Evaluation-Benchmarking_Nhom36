@@ -1,4 +1,4 @@
-# Individual Reflection — Lương Anh - 2A202600472
+# Individual Reflection — Lương Hoàng Anh - 2A202600472
 
 > GitHub: anhluong447 · Email: anhluog47@gmail.com
 
