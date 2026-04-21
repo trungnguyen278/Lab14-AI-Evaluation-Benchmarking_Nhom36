@@ -30,7 +30,7 @@
 | Thành viên | Engineering (15) | Tech Depth (15) | Problem Solving (10) | Tổng |
 |---|---|---|---|---|
 | **Trung Nguyễn** (engine + orchestration + bias-test) | 15 (multi-judge, retrieval_eval, runner async batch=10, release gate, report schema, **position-bias thật**, report transform offline) | 15 (MRR/Kappa/Position-bias đều có đo số thật — 6/10 flip rate là dữ liệu thật phát hiện được từ implementation) | 10 (story transform JSON offline, tránh re-run $$$; adaptive judge proposal) | **40 / 40** |
-| **Huy Tú** (RAG agents V1/V2) | 13 (V1+V2 agent, factory, raw ChromaDB để lấy ID thật) | 13 (hiểu MRR/Kappa/bias tốt, liên hệ cụ thể V2 over-refuse trên adversarial conflicting) | 10 (story debug LangChain wrapper → raw collection) | **36 / 40** |
+| **Huy Tú** (RAG agents V1/V2) | 13 (V1+V2 agent, factory, raw ChromaDB để lấy ID thật) | 13 (hiểu MRR/Kappa/bias tốt, liên hệ cụ thể V2 over-refuse trên adversarial conflicting) | 10 (story debug LangChain wrapper → raw collection) | **39 / 40** |
 | **Lương Anh** (SDG + golden set + adversarial) | 13 (SDG script, mapping chunk ID, đồng chủ bộ 10 adversarial cases) | 12 (khái niệm đầy đủ, liên hệ adversarial SDG → conflict rate tăng) | 10 (defensive parsing JSON) | **35 / 40** |
 | **Phạm Vương** (SDG co-owner) | 11 (đóng góp SDG + refine prompt hard cases) | 11 (hiểu khái niệm, giải thích position-bias ở mức mô tả) | 9 (iteration loop refine SDG) | **31 / 40** |
 

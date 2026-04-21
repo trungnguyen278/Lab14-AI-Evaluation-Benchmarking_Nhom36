@@ -1,4 +1,4 @@
-# Individual Reflection — Huy Tú
+# Individual Reflection — Nguyễn Huy Tú
 
 > GitHub: huytu0702 · Email: tufy2k4@gmail.com · MSV: 2A202600170
 
