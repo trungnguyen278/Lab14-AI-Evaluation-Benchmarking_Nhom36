@@ -1,6 +1,6 @@
-# Individual Reflection — Lương Anh
+# Individual Reflection — Lương Hoàng Anh - 2A202600472
 
-> GitHub: hitomisaichi · Email: hitomisaichi@gmail.com
+> GitHub: anhluong447 · Email: anhluog47@gmail.com
 
 ## 1. Vai trò trong nhóm & đóng góp cụ thể
 - **Vai trò:** Data — chủ script SDG và khởi tạo Golden Dataset.
